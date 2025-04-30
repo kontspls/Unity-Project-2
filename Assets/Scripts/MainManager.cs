@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
+using UnityEditor.SceneManagement;
+using UnityEditor;
 
 public class MainManager : MonoBehaviour
 {
@@ -11,17 +14,21 @@ public class MainManager : MonoBehaviour
     public Rigidbody Ball;
 
     public Text ScoreText;
+    public Text bestScore;
     public GameObject GameOverText;
-    
+    public GameObject backToMain;
+    public static MainManager Instance;
+
+
     private bool m_Started = false;
     private int m_Points;
     
-    private bool m_GameOver = false;
+    public static bool m_GameOver = false;
 
-    
     // Start is called before the first frame update
     void Start()
     {
+        bestScore.text = $"Highest Score: {NameSelector.Instance.bestPlayer} - {NameSelector.Instance.highScore}";
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -59,18 +66,32 @@ public class MainManager : MonoBehaviour
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
+            else if (Input.GetKeyDown(KeyCode.R))
+            {
+#if UNITY_EDITOR
+                EditorApplication.ExitPlaymode();
+#else
+        Application.Quit(); // original code to quit Unity player
+#endif
+            }
         }
     }
 
     void AddPoint(int point)
     {
         m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
+        ScoreText.text = $"{NameSelector.Instance.playerName}'s Score is " + m_Points;
     }
 
     public void GameOver()
     {
+        if (m_Points >= NameSelector.Instance.highScore)
+        {
+            NameSelector.Instance.highScore = m_Points;
+            NameSelector.Instance.SaveHighScore();
+        }
         m_GameOver = true;
         GameOverText.SetActive(true);
+        backToMain.SetActive(true);
     }
 }
