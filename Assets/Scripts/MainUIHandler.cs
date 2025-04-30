@@ -1,9 +1,9 @@
 #if UNITY_EDITOR
 using System.Security.Permissions;
 using System.Xml.Linq;
-using TMPro;
 using UnityEditor;
 #endif
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using TMPro;
-using UnityEditor.SceneManagement;
 using UnityEditor;
 
 public class MainManager : MonoBehaviour

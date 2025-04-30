@@ -1,10 +1,8 @@
-using JetBrains.Annotations;
-using UnityEditor.Overlays;
+
 using UnityEngine;
 using System.IO;
-using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
+
 
 
 public class NameSelector : MonoBehaviour
